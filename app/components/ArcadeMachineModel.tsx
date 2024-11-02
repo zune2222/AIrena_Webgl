@@ -1,7 +1,7 @@
 // components/ArcadeMachineModel.tsx
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Mesh, Color } from "three";
+import { Mesh } from "three";
 import { Html, Edges } from "@react-three/drei";
 
 const ArcadeMachineModel: React.FC = () => {
@@ -16,14 +16,13 @@ const ArcadeMachineModel: React.FC = () => {
 
   return (
     <group position={[0, -1.5, 0]}>
-      {" "}
-      {/* 바닥과 맞닿도록 위치 조정 */}
       {/* 게임기 본체 */}
       <mesh position={[0, 1, 0]} castShadow>
         <boxGeometry args={[2, 3, 1]} />
         <meshStandardMaterial color="#2a2a2a" />
-        <Edges scale={1.05} color="#00ffff" /> {/* 네온 테두리 효과 */}
+        <Edges scale={1.05} color="#00ffff" />
       </mesh>
+
       {/* 스크린 */}
       <mesh ref={screenRef} position={[0, 2, -0.45]} receiveShadow>
         <planeGeometry args={[1.5, 1]} />
@@ -46,12 +45,14 @@ const ArcadeMachineModel: React.FC = () => {
           </div>
         </Html>
       </mesh>
+
       {/* 조작 패널 */}
       <mesh position={[0, 0.5, 0.45]} rotation={[-0.4, 0, 0]}>
         <boxGeometry args={[1.8, 0.5, 0.1]} />
         <meshStandardMaterial color="#3a3a3a" />
       </mesh>
-      {/* 조이스틱 */}
+
+      {/* 조이스틱과 버튼들 */}
       <mesh position={[-0.6, 0.6, 0.6]}>
         <cylinderGeometry args={[0.05, 0.05, 0.3, 32]} />
         <meshStandardMaterial color="red" />
@@ -60,7 +61,6 @@ const ArcadeMachineModel: React.FC = () => {
         <sphereGeometry args={[0.1, 32, 32]} />
         <meshStandardMaterial color="red" />
       </mesh>
-      {/* 버튼들 */}
       <mesh position={[0.2, 0.6, 0.6]}>
         <cylinderGeometry args={[0.08, 0.08, 0.05, 32]} />
         <meshStandardMaterial color="blue" />
@@ -69,12 +69,35 @@ const ArcadeMachineModel: React.FC = () => {
         <cylinderGeometry args={[0.08, 0.08, 0.05, 32]} />
         <meshStandardMaterial color="green" />
       </mesh>
-      {/* 스티커 */}
+
+      {/* 측면 스티커 */}
       <mesh position={[-1.1, 1, 0]}>
         <planeGeometry args={[0.5, 1.5]} />
         <meshStandardMaterial color="yellow" />
-        <Edges scale={1.01} color="#00ff00" />
       </mesh>
+
+      {/* 가로등 기둥 */}
+      <mesh position={[2, 2, 0]}>
+        <cylinderGeometry args={[0.05, 0.05, 5, 42]} />
+        <meshStandardMaterial color="#888888" />
+      </mesh>
+
+      {/* 가로등 램프 */}
+      <mesh position={[2, 4, 0]}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshStandardMaterial emissive="#ffffcc" emissiveIntensity={1.2} />
+      </mesh>
+
+      {/* 가로등 빛 */}
+      <spotLight
+        position={[2, 2, 0]}
+        angle={Math.PI / 6}
+        penumbra={0.5}
+        intensity={100} // 밝기 증가
+        distance={10} // 빛의 범위 확장
+        color="yellow"
+        castShadow
+      />
     </group>
   );
 };

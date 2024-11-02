@@ -1,30 +1,30 @@
 "use client";
 import React from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Reflector, Html, Environment } from "@react-three/drei";
+import { OrbitControls, Reflector, Environment } from "@react-three/drei";
 import ArcadeMachineModel from "./components/ArcadeMachineModel";
 
 const Home: React.FC = () => {
   return (
     <div style={{ height: "100vh" }}>
       <Canvas
-        style={{ background: "#f0f0f0" }}
+        style={{ background: "#000000" }} // 배경을 어두운 색으로 설정
         shadows // 그림자 활성화
       >
-        {/* 배경 환경 조명 */}
-        <ambientLight intensity={0.3} />
+        {/* 어두운 환경 조명 */}
+        <ambientLight intensity={0.05} />
 
-        {/* 메인 광원 */}
+        {/* 약한 태양광 */}
         <directionalLight
           position={[5, 5, 5]}
-          intensity={1}
+          intensity={0.3} // 밝기를 더 낮춰서 밤 분위기 조성
           castShadow
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
 
-        {/* 게임기에서 나오는 빛의 반사를 위해 반사율 조정 */}
-        <Environment preset="sunset" />
+        {/* 밤하늘 배경 */}
+        <Environment preset="night" />
 
         {/* 아케이드 게임기 */}
         <ArcadeMachineModel />
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
           rotation={[-Math.PI / 2, 0, 0]}
           position={[0, -1.5, 0]}
           args={[20, 20]}
-          mirror={0.6} // 반사율을 높여 더 명확히 반사
+          mirror={0.6}
         >
           {(Material, props) => (
             <Material
