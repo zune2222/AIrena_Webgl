@@ -1,3 +1,4 @@
+// app/page.tsx
 "use client";
 import React from "react";
 import { Canvas } from "@react-three/fiber";
@@ -7,6 +8,7 @@ import ArcadeMachineModel from "./components/ArcadeMachineModel";
 const Home: React.FC = () => {
   return (
     <div style={{ height: "100vh" }}>
+      {/* Three.js Canvas */}
       <Canvas
         style={{ background: "#000000" }} // 배경을 어두운 색으로 설정
         shadows // 그림자 활성화
